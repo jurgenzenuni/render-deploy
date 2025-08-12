@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Role Lookup</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Role Lookup</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" placeholder="Enter your username" required />
+            <button type="submit">Find Role</button>
+        </form>
+
+        {% if role_name is not None %}
+        <div class="result">
+            {% if role_name %}
+            <p>User: <strong>{{ found_username }}</strong></p>
+            <p>Role: <strong>{{ role_name }}</strong></p>
+            {% else %}
+            <p>No role found for that user.</p>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>
