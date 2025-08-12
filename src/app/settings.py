@@ -148,7 +148,12 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+
+# Add only existing static directories to avoid warnings in production
+STATICFILES_DIRS = []
+for _p in (BASE_DIR / 'static', BASE_DIR / 'app' / 'static'):
+    if _p.exists():
+        STATICFILES_DIRS.append(_p)
 
 # Use WhiteNoise’s compressed manifest storage
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
